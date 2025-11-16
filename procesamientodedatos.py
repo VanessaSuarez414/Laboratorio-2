@@ -8,10 +8,10 @@ logs = [
     ["ana", "15:00", "16:00"]
 ]
 
-usuarios = []   # lista para guardar usuarios únicos
+usuarios = []   # lista de usuarios únicos
 
 i = 0
-while i < len(logs):   # leer cada registro de la matriz
+while i < len(logs):
     usuario = logs[i][0]
 
     if usuario not in usuarios:
@@ -20,19 +20,29 @@ while i < len(logs):   # leer cada registro de la matriz
     i += 1
 
 
-
-resultados = []   # [nombre_usuario, numero_de_accesos]
+resultados = []  # [usuario, numero_de_accesos, lista_de_horas]
 
 for u in usuarios:
     contador = 0
-    for registro in logs:  # recorrer matriz
+    horas = []   # aquí guardamos las horas de entrada y salida
+
+    for registro in logs:
         if registro[0] == u:
             contador += 1
+            horas.append((registro[1], registro[2]))  # (entrada, salida)
 
-    resultados.append([u, contador])
+    resultados.append([u, contador, horas])
 
 
-
+# Mostrar resultados completos
 print("Resultados finales:")
 for r in resultados:
-    print(r)
+    usuario = r[0]
+    accesos = r[1]
+    horas = r[2]
+
+    print(f"\nUsuario: {usuario}")
+    print(f"Total accesos: {accesos}")
+    print("Horas registradas:")
+    for h in horas:
+        print(f" - Entrada: {h[0]} | Salida: {h[1]}")
